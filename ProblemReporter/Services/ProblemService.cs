@@ -19,7 +19,6 @@ public class ProblemService
     }
     public async Task CreateProblemAsync(Problem problem)
     {
-        // user id legyen átadva
         await _context.Problems.AddAsync(problem); 
         await _context.SaveChangesAsync();
     }

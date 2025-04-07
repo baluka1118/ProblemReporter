@@ -80,9 +80,10 @@ builder.Services.AddTransient<ProblemService>();
 var app = builder.Build();
 
 //create roles on startup if not exists
-var roleManager = app.Services.GetService<RoleManager<IdentityRole>>();
-if (roleManager != null)
+// Create roles on startup if not exists
+using (var scope = app.Services.CreateScope())
 {
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userRole = new IdentityRole("Worker");
     if (!await roleManager.RoleExistsAsync(userRole.Name!))
     {

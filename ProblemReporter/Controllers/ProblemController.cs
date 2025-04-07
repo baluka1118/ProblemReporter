@@ -21,9 +21,19 @@ public class ProblemController : Controller
     }
     [HttpGet]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetAllProblems()
+    public IActionResult GetAllProblems()
     {
         // serviceből összes problem -> id alapján manager-rel lekérni a nevet
+        
+        var problems = _problemService.GetAllProblemsAsync();
+        var problemDtos = problems.Select(p => new ProblemViewDto()
+        {
+            Id = p.Id,
+            Description = p.Description,
+            SubmittedAt = p.SubmittedAt,
+            SubmitterName = _userManager.Users.First(u => u.Id == p.UserId).UserName!
+        });
+        return Ok(problemDtos);
     }
 
     [HttpPost]
