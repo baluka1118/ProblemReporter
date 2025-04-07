@@ -39,6 +39,10 @@ public class AuthController : Controller
             await _roleManager.CreateAsync(new IdentityRole("Admin"));
             await _userManager.AddToRoleAsync(user, "Admin");
         }
+        else
+        {
+            await _userManager.AddToRoleAsync(user, "Worker");
+        }
     }
 
     [HttpPost("login")]
