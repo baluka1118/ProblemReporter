@@ -1,0 +1,6 @@
+@ProblemReporter_HostAddress = http://localhost:5241
+
+GET {{ProblemReporter_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
